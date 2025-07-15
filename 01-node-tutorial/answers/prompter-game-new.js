@@ -106,25 +106,10 @@ const server = http.createServer((req, res) => {
     getBody(req, (body) => {
       console.log("The body of the post is ", body);
       // here, you can add your own logic
-      if (body["reset"] === "true") {
-        // Reset the game
-        targetNumber = Math.floor(Math.random() * 100) + 1;
-        attempts = 0;
-        gameMessage = "New game started! I'm thinking of a number between 1 and 100.";
-        gameWon = false;
-      } else if (body["guess"]) {
-        // Process the guess
-        const userGuess = parseInt(body["guess"]);
-        attempts++;
-        
-        if (userGuess === targetNumber) {
-          gameMessage = `Congratulations! You found it! The number was ${targetNumber}. You got it in ${attempts} attempts!`;
-          gameWon = true;
-        } else if (userGuess < targetNumber) {
-          gameMessage = `Your guess of ${userGuess} is too low. Try higher!`;
-        } else if (userGuess > targetNumber) {
-          gameMessage = `Your guess of ${userGuess} is too high. Try lower!`;
-        }
+      if (body["item"]) {
+        item = body["item"];
+      } else {
+        item = "Nothing was entered.";
       }
       // Your code changes would end here
       res.writeHead(303, {
