@@ -1,11 +1,31 @@
 const express = require('express');
 const path = require('path');
 const { products } = require('./data');
+const peopleRouter = require('./routes/people');
 
 const app = express();
 
-// 1. Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Logger middleware function
+const logger = (req, res, next) => {
+  const method = req.method;
+  const url = req.url;
+  const time = new Date().toISOString();
+  console.log(`${method} ${url} - ${time}`);
+  next();
+};
+
+// Body parsing middleware (needed for POST/PUT requests)
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Use logger for all routes
+app.use(logger);
+
+// 1. Serve static files from methods-public instead of public
+app.use(express.static(path.join(__dirname, 'methods-public')));
+
+// Mount the people router
+app.use("/api/v1/people", peopleRouter);
 
 // 2. Test endpoint
 app.get('/api/v1/test', (req, res) => {
