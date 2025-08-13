@@ -1,0 +1,18 @@
+// /home/lenovo/code/ltphongssvn/node-express-course/03-task-manager/starter/QuizAnswers2.txt
+
+1. In this lesson, you created a middleware function called `asyncWrapper`. Why?
+
+The asyncWrapper middleware was created to eliminate repetitive try-catch blocks in every controller function. Without it, each async controller would need its own try-catch block to handle potential errors from database operations. The asyncWrapper implements the DRY (Don't Repeat Yourself) principle by centralizing error handling logic. It wraps controller functions, automatically catches any errors that occur during their execution, and passes those errors to the error handling middleware using next(error). This makes the controller code cleaner and more focused on business logic rather than error handling boilerplate.
+
+2. Suppose that you want to make sure that both a status code and an error message are sent back to the user when they request the URL for a task that does not exist. Assume that you've created a `CustomAPIError` class and an error handler that references that class. Complete the code:
+
+const getTask = asyncWrapper(async (req, res, next) => {
+  const { id: taskID } = req.params;
+  const task = await Task.findOne({ _id: taskID });
+  if (!task) {
+    return next(createCustomError(`No task with id : ${taskID}`, 404));
+  }
+  res.status(200).json({ task });
+});
+
+The key is using return next() with createCustomError to pass a custom error with a 404 status code to the error handler middleware, which will then send the appropriate response to the client.
