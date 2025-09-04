@@ -2,6 +2,13 @@
 .idea/
 .vscode/
 .claude/
+
+# Development Agent directories
+.bmad*/
+bmad*/
+*bmad*/
+*.bmad
+*/.bmad*/
 *.swp
 *.swo
 *~
