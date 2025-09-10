@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "03f02a7c-e7ae-4f9e-b073-17d054ac4aeb",
+		"name": "06-Jobs-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46722778",
+		"_collection_link": "https://thanhphongle.postman.co/workspace/Thanh-Phong-Le's-Workspace~834a286d-b94b-40c2-8025-e6d9f20721bc/collection/46722778-03f02a7c-e7ae-4f9e-b073-17d054ac4aeb?action=share&source=collection_link&creator=46722778"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test response structure",
+							"pm.test(\"Response has token and user\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('token');",
+							"    pm.expect(jsonData).to.have.property('user');",
+							"    pm.expect(jsonData.user).to.have.property('name');",
+							"});",
+							"",
+							"// Test status code",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// Extract and save the token for use in other requests",
+							"if (pm.response.code === 201) {",
+							"    const jsonData = pm.response.json();",
+							"    ",
+							"    // Save token to collection variables",
+							"    pm.collectionVariables.set(\"token\", jsonData.token);",
+							"    pm.collectionVariables.set(\"currentUserName\", jsonData.user.name);",
+							"    ",
+							"    // Log for debugging",
+							"    console.log(\"Token saved to collection variables\");",
+							"    console.log(\"User registered:\", jsonData.user.name);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"email\": \"test_{{$timestamp}}@example.com\",\n  \"password\": \"SecurePass123!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Saved response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"TestPass123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "241"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f1-nuMqe/+yYJhiy8uQpFBuqmffsec\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 09 Sep 2025 06:43:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"name\": \"Test User\"\n    },\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJmY2M4MjkzZDdhNzI2MmE2YWFlOWIiLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNzU3NDAwMTk0LCJleHAiOjE3NTk5OTIxOTR9._UwJZKoOcxFScerHNBKd6aG4RHx2cV4gX19R1mBV1wg\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test response structure",
+							"pm.test(\"Response has token and user\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('token');",
+							"    pm.expect(jsonData).to.have.property('user');",
+							"    pm.expect(jsonData.user).to.have.property('name');",
+							"});",
+							"",
+							"// Test status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Extract and save the token for use in other requests",
+							"if (pm.response.code === 200) {",
+							"    const jsonData = pm.response.json();",
+							"    ",
+							"    // Save token to collection variables",
+							"    pm.collectionVariables.set(\"token\", jsonData.token);",
+							"    pm.collectionVariables.set(\"currentUserName\", jsonData.user.name);",
+							"    ",
+							"    // Log for debugging",
+							"    console.log(\"Token saved to collection variables\");",
+							"    console.log(\"User logged in:\", jsonData.user.name);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"TestPass123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Saved response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"TestPass123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "241"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f1-tOaDdkW2MsO6136xBCgH86OGijo\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 09 Sep 2025 07:47:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"name\": \"Test User\"\n    },\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJmY2M4MjkzZDdhNzI2MmE2YWFlOWIiLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNzU3NDA0MDI4LCJleHAiOjE3NTk5OTYwMjh9.y91UMZHDGB3L6sRrgDspPui1v02DcMhk7_LxaBGs5Do\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Job",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response has job with all fields\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.job).to.exist;",
+							"    pm.expect(jsonData.job).to.have.property('_id');",
+							"    pm.expect(jsonData.job).to.have.property('company');",
+							"    pm.expect(jsonData.job).to.have.property('position');",
+							"    pm.expect(jsonData.job).to.have.property('status');",
+							"    pm.expect(jsonData.job).to.have.property('createdBy');",
+							"});",
+							"",
+							"// Save the job ID to collection variables for use in other requests",
+							"const jsonData = pm.response.json();",
+							"if (jsonData.job && jsonData.job._id) {",
+							"    pm.collectionVariables.set(\"jobId\", jsonData.job._id);",
+							"    console.log(\"Job ID saved: \" + jsonData.job._id);",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJmY2M4MjkzZDdhNzI2MmE2YWFlOWIiLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNzU3NDIzODYyLCJleHAiOjE3NjAwMTU4NjJ9.YLPoE6J6gGkI52e8228gPrpIOS3MO5QGw_ZUW5NpViM\n",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"company\": \"Tech Solutions Inc\",\n  \"position\": \"Full Stack Developer\",\n  \"status\": \"interview\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/jobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Jobs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has jobs array\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.jobs).to.be.an('array');\r",
+							"    pm.expect(jsonData.count).to.be.a('number');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/jobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Job",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has single job\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.job).to.exist;\r",
+							"    pm.expect(jsonData.job._id).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/jobs/{{jobId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{jobId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Job",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Job was updated\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.job.company).to.include(\"Updated\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\": \"Tech Solutions Inc Updated\",\r\n    \"position\": \"Senior Full Stack Developer\",\r\n    \"status\": \"pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/jobs/{{jobId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{jobId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Job",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Job successfully deleted\", function () {\r",
+							"    const responseText = pm.response.text();\r",
+							"    // Check for either \"Success\" OR \"removed\" in the response\r",
+							"    pm.expect(responseText.toLowerCase()).to.satisfy(function(text) {\r",
+							"        return text.includes(\"success\") || text.includes(\"removed\");\r",
+							"    }, \"Response should indicate successful deletion\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/jobs/{{jobId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						"{{jobId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "currentUserName",
+			"value": ""
+		},
+		{
+			"key": "jobId",
+			"value": ""
+		}
+	]
+}
