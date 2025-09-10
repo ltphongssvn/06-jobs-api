@@ -45,27 +45,6 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
-// Temporary endpoint to check Render IP address
-app.get("/check-ip", async (req, res) => {
-  try {
-    const https = require("https");
-    https.get("https://api.ipify.org?format=json", (response) => {
-      let data = "";
-      response.on("data", (chunk) => {
-        data += chunk;
-      });
-      response.on("end", () => {
-        const ipInfo = JSON.parse(data);
-        res.json({ 
-          renderOutboundIP: ipInfo.ip,
-          message: "Add this IP to MongoDB Atlas Network Access" 
-        });
-      });
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Could not fetch IP" });
-  }
-});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
@@ -73,18 +52,13 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5000;
 
 const start = async () => {
-  // Start server immediately for IP check endpoint
-  app.listen(port, () =>
-    console.log(`Server is listening on port ${port}...`)
-  );
-  
-  // Try to connect to DB but don't block server startup
   try {
     await connectDB(process.env.MONGO_URI);
-    console.log('Connected to MongoDB successfully');
+    app.listen(port, () =>
+      console.log(`Server is listening on port ${port}...`)
+    );
   } catch (error) {
-    console.log('MongoDB connection failed:', error.message);
-    console.log('Server running without database - only /check-ip endpoint will work');
+    console.log(error);
   }
 };
 
