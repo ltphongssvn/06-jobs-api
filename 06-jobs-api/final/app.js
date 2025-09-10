@@ -45,6 +45,28 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 
+// Temporary endpoint to check Render IP address
+app.get("/check-ip", async (req, res) => {
+  try {
+    const https = require("https");
+    https.get("https://api.ipify.org?format=json", (response) => {
+      let data = "";
+      response.on("data", (chunk) => {
+        data += chunk;
+      });
+      response.on("end", () => {
+        const ipInfo = JSON.parse(data);
+        res.json({ 
+          renderOutboundIP: ipInfo.ip,
+          message: "Add this IP to MongoDB Atlas Network Access" 
+        });
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Could not fetch IP" });
+  }
+});
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
