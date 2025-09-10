@@ -73,13 +73,18 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5000;
 
 const start = async () => {
+  // Start server immediately for IP check endpoint
+  app.listen(port, () =>
+    console.log(`Server is listening on port ${port}...`)
+  );
+  
+  // Try to connect to DB but don't block server startup
   try {
     await connectDB(process.env.MONGO_URI);
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
+    console.log('Connected to MongoDB successfully');
   } catch (error) {
-    console.log(error);
+    console.log('MongoDB connection failed:', error.message);
+    console.log('Server running without database - only /check-ip endpoint will work');
   }
 };
 
