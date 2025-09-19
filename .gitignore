@@ -1,6 +1,7 @@
 # IDE and Editor directories
 .idea/
-.vscode/
+.vscode
+
 *.swp
 *.swo
 *~
