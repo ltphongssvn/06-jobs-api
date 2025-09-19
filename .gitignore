@@ -1,14 +1,7 @@
 # IDE and Editor directories
 .idea/
-.vscode/
-.claude/
+.vscode
 
-# Development Agent directories
-.bmad*/
-bmad*/
-*bmad*/
-*.bmad
-*/.bmad*/
 *.swp
 *.swo
 *~
