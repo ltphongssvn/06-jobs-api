@@ -1,0 +1,281 @@
+{
+	"id": "6184500b-2541-4c22-ab94-90184aea7de1",
+	"name": "06-Jobs-API",
+	"timestamp": "2025-09-10T09:44:43.071Z",
+	"collection_id": "46722778-03f02a7c-e7ae-4f9e-b073-17d054ac4aeb",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 8,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-09-10T09:44:39.995Z",
+	"totalFail": 6,
+	"results": [
+		{
+			"id": "7e93803c-7665-489c-8a1a-5fae5e3068dd",
+			"name": "Register User",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/auth/register",
+			"time": 731,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Response has token and user": true,
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Response has token and user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				731
+			],
+			"allTests": [
+				{
+					"Response has token and user": true,
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "c847fd74-005a-4a53-9fa9-73d641893f5c",
+			"name": "Login User",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/auth/login",
+			"time": 657,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response has token and user": true,
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Response has token and user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				657
+			],
+			"allTests": [
+				{
+					"Response has token and user": true,
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "d5085424-be48-4b31-8fa9-f00e7e7609ec",
+			"name": "Create Job",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/jobs",
+			"time": 218,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has job with all fields": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has job with all fields": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				218
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has job with all fields": true
+				}
+			]
+		},
+		{
+			"id": "b9a750ef-2f5a-4d2c-a29f-84d7562cd148",
+			"name": "Get All Jobs",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/jobs",
+			"time": 160,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response has jobs array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has jobs array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				160
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response has jobs array": true
+				}
+			]
+		},
+		{
+			"id": "78812ed8-60ec-4e92-8c46-e8893fd50dd3",
+			"name": "Get Single Job",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/jobs/:id",
+			"time": 73,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Response has single job": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Response has single job": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				73
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Response has single job": false
+				}
+			]
+		},
+		{
+			"id": "d19ae905-d299-4bb2-8f6a-edf9ab8401a7",
+			"name": "Update Job",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/jobs/:id",
+			"time": 71,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Job was updated": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Job was updated": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				71
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Job was updated": false
+				}
+			]
+		},
+		{
+			"id": "1564f17a-80b5-481b-bd88-fc5a0234d5da",
+			"name": "Delete Job",
+			"url": "https://zero6-jobs-api-aa7h.onrender.com/api/v1/jobs/:id",
+			"time": 64,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 200": false,
+				"Job successfully deleted": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Job successfully deleted": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				64
+			],
+			"allTests": [
+				{
+					"Status code is 200": false,
+					"Job successfully deleted": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1974,
+	"collection": {
+		"requests": [
+			{
+				"id": "7e93803c-7665-489c-8a1a-5fae5e3068dd",
+				"method": "POST"
+			},
+			{
+				"id": "c847fd74-005a-4a53-9fa9-73d641893f5c",
+				"method": "POST"
+			},
+			{
+				"id": "d5085424-be48-4b31-8fa9-f00e7e7609ec",
+				"method": "POST"
+			},
+			{
+				"id": "b9a750ef-2f5a-4d2c-a29f-84d7562cd148",
+				"method": "GET"
+			},
+			{
+				"id": "78812ed8-60ec-4e92-8c46-e8893fd50dd3",
+				"method": "GET"
+			},
+			{
+				"id": "d19ae905-d299-4bb2-8f6a-edf9ab8401a7",
+				"method": "PATCH"
+			},
+			{
+				"id": "1564f17a-80b5-481b-bd88-fc5a0234d5da",
+				"method": "DELETE"
+			}
+		]
+	}
+}
